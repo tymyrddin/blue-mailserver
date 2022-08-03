@@ -1,6 +1,4 @@
-# Postfix
-
-Postfix is a mail transfer agent (MTA). The below was for debian 9 (will most likely also work with later versions).
+# Postfix configuration
 
 * The two most important configuration files are:
     * `/etc/postfix/master.cf`, defining what Postfix services are enabled and how clients connect to them
@@ -29,13 +27,15 @@ You will be asked a series of questions. On the first prompt, select //Internet 
 
 Configure the basics:
 
-    # cp /etc/postfix/main.cf{,.old}
-    # vi /etc/postfix/main.cf
+```text
+# cp /etc/postfix/main.cf{,.old}
+# vi /etc/postfix/main.cf
 
 
-    myhostname = $hostname                                   //Use command "hostname" to display your hostname
-    myorigin = $mydomain                                     //Add domain, so others can not abuse the mailsystem
-    relay_domains = domain1.com, domain2.com, domain3.com    //Add the domains the system will handle
+myhostname = $hostname                                   //Use command "hostname" to display your hostname
+myorigin = $mydomain                                     //Add domain, so others can not abuse the mailsystem
+relay_domains = domain1.com, domain2.com, domain3.com    //Add the domains the system will handle
+```
 
 ### Multiple local domains 
 
@@ -73,21 +73,23 @@ Maildir **is** the newer and preferrable format due to the lot of improvements c
 ### SMTP restrictions 
 The `smtpd_*_restrictions` directives can be used to set what data is accepted for any SMTP command, for example in `/etc/postfix/main.cf`: 
 
-    # smtpd_recipient_restrictions = reject_invalid_hostname,
-        reject_unknown_recipient_domain,
-        reject_unauth_destination,
-        reject_rbl_client sbl.spamhaus.org,
-        permit
+```text
+# smtpd_recipient_restrictions = reject_invalid_hostname,
+    reject_unknown_recipient_domain,
+    reject_unauth_destination,
+    reject_rbl_client sbl.spamhaus.org,
+    permit
 
-    # smtpd_helo_restrictions = reject_invalid_helo_hostname,
-        reject_non_fqdn_helo_hostname,
-        reject_unknown_helo_hostname
+# smtpd_helo_restrictions = reject_invalid_helo_hostname,
+    reject_non_fqdn_helo_hostname,
+    reject_unknown_helo_hostname
+```
         
 ### Blacklisting 
 
 Manually blacklisting incoming emails by sender address can easily be done with Postfix. Create and open an `/etc/postfix/blacklist_incoming` file and append sender email addresses:
 
-user@domain.com REJECT
+    user@domain.com REJECT
 
 To create a database, use postmap command:
 
@@ -115,19 +117,21 @@ Its configuration is done via editing the postgrey.service file. Copy it over to
 
 Using postgrey it is also possible to add automatic whitelisting based on successful deliveries. These then don't have to wait any more. This can be done by , you could add the adding the `--auto-whitelist-clients=5` (default is 5) but the preferred method is the override:
 
-    # cat /etc/systemd/system/postgrey.service.d/override.conf
-    [Service]
-    ExecStart=
-    ExecStart=/usr/bin/postgrey --inet=127.0.0.1:10030 \
-           --pidfile=/run/postgrey/postgrey.pid \
-           --group=postgrey --user=postgrey \
-           --daemonize \
-           --greylist-text="Greylisted for %%s seconds" \
-           --auto-whitelist-clients
+```text
+# cat /etc/systemd/system/postgrey.service.d/override.conf
+[Service]
+ExecStart=
+ExecStart=/usr/bin/postgrey --inet=127.0.0.1:10030 \
+       --pidfile=/run/postgrey/postgrey.pid \
+       --group=postgrey --user=postgrey \
+       --daemonize \
+       --greylist-text="Greylisted for %%s seconds" \
+       --auto-whitelist-clients
+```
 
 Add your own list of whitelisted clients in addition to the default ones by creating the file `/etc/postfix/whitelist_clients.local` (one host or domain per line).
 
-Restart the postgrey.service for the changes to take effect. 
+Restart the `postgrey.service` for the changes to take effect. 
 
 ### Header filtering 
 
@@ -162,10 +166,12 @@ With policy services Postfix' behaviour of mail delivery can be fine-tuned. This
 
 Policy services are standalone services and connected to Postfix in `/etc/postfix/main.cf` by something like:
 
-    smtpd_recipient_restrictions =
-                        ...
-      check_policy_service unix:/run/policyd.sock
-      check_policy_service inet:127.0.0.1:10040
+```text
+smtpd_recipient_restrictions =
+                    ...
+  check_policy_service unix:/run/policyd.sock
+  check_policy_service inet:127.0.0.1:10040
+```
 
 Placed at the end of the queue reduces load, as only legitimate mails are processed, but place it before the first permit statement to catch all incoming messages. 
 
@@ -191,8 +197,11 @@ In Postfix, the maximal number of Received: message headers that is allowed in t
 
 ## Restart 
 
-    # systemctl restart postfix
-    # systemctl status postfix
-    # netstat -tlpn
+```text
+# systemctl restart postfix
+# systemctl status postfix
+# netstat -tlpn
+```
+
 
 

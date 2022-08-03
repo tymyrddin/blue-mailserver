@@ -1,6 +1,8 @@
 # Dovecot
 
-Dovecot is an open source IMAP and POP3 server for Linux/UNIX-like systems, written primarily with security in mind. Dovecot primarily aims to be a lightweight, fast and easy to set up open source mailserver. The below is for debian 9 (probably also works on buster)
+Dovecot is an open source IMAP and POP3 server for Linux/UNIX-like systems, written primarily with security in mind. 
+Dovecot aims to be a lightweight, fast and easy to set up open source mailserver. The below is for debian 9 (probably 
+also works on buster)
 
 ## Installation 
 
@@ -22,9 +24,12 @@ By default dovecot will try to detect what mail storage system is in use on the 
 
 To configure it for the SSL certificates, open `/etc/dovecot/conf.d/10-ssl.conf` and append:
 
-    ssl = required
-    ssl_cert = </etc/letsencrypt/live/mail.mydomain.com/fullchain.pem
-    ssl_key = </etc/letsencrypt/live/mail.mydomain.com/privkey.pem
+```text
+ssl = required
+ssl_cert = </etc/letsencrypt/live/mail.mydomain.com/fullchain.pem
+ssl_key = </etc/letsencrypt/live/mail.mydomain.com/privkey.pem
+```
+
 
 To force SSL/TLS encryption, open `/etc/dovecot/conf.d/10-auth.conf` and make sure:
 
@@ -33,12 +38,14 @@ To force SSL/TLS encryption, open `/etc/dovecot/conf.d/10-auth.conf` and make su
 ### SASL
 In the main configuration file `/etc/dovecot/conf.d/10-master.conf`, uncomment the paragraph for Postfix in the auth service block:
 
-    service auth {
-      # Postfix smtp-auth
-      unix_listener /var/spool/postfix/private/auth {
-        mode = 0660
-      }
-    }
+```text
+service auth {
+  # Postfix smtp-auth
+  unix_listener /var/spool/postfix/private/auth {
+    mode = 0660
+  }
+}
+```
 
 This will create the `private/auth` path for the SASL configuration of Postfix. Because Postfix runs chrooted in `/var/spool/postfix`, a relative path must be used.
 
@@ -46,8 +53,10 @@ This will create the `private/auth` path for the SASL configuration of Postfix. 
 
 In `/etc/postfix/master.cf` append:
 
-    dovecot   unix  -       n       n       -       -       pipe
-  flags=DRhu user=email:email argv=/usr/lib/dovecot/deliver -f ${sender} -d ${recipient}
+```text
+dovecot   unix  -       n       n       -       -       pipe
+flags=DRhu user=email:email argv=/usr/lib/dovecot/deliver -f ${sender} -d ${recipient}
+```
   
 ## Firewall
 

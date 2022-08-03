@@ -1,4 +1,4 @@
-# SASL
+# SASL configuration
 
 Once Postfix is up and running, add SASL authentication to avoid open relaying. In order to prevent anonymous users from spamming, only authenticated and trusted users will be able to send emails. Postfix supports two SASL implementations: Cyrus SASL (SMTP client and server) and Dovecot SASL (SMTP server only). Both implementations can be built into Postfix simultaneously.
 
@@ -71,7 +71,7 @@ To enable SASL for accepting mail from other users, in `/etc/postfix/master.cf` 
       -o smtpd_recipient_restrictions=permit_sasl_authenticated,reject
       -o milter_macro_daemon_name=ORIGINATING
 
-* The three restriction options (client, helo, sender) can also be left commented out, since `smtpd_recipient_restrictions` already handles SASL users.
+The three restriction options (client, helo, sender) can also be left commented out, since `smtpd_recipient_restrictions` already handles SASL users.
 
 Start/enable the saslauthd service and restart the postfix service.
 
@@ -98,22 +98,25 @@ In `/etc/postfix/main.cf`:
     smtpd_relay_restrictions = permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination
     smtpd_sasl_local_domain = $myhostname
 
-* `smtpd_sender_restrictions` filters mails based on the MAIL FROM command; This command is easy faked by telneting an open relay and typing in this command, therefore mail counl be sent with a valid MAIL FROM address. Use `smtpd_client_restrictions` instead, which checks the hostname or IP address of the smtpd client (the other MTA/SMTP connecting to the internal smtpd) in a black list, if listed mail is denied.
-* If mails are marked as `NoBounceOpenRelay` try:
+`smtpd_sender_restrictions` filters mails based on the MAIL FROM command; This command is easy faked by telneting an open relay and typing in this command, therefore mail counl be sent with a valid MAIL FROM address. Use `smtpd_client_restrictions` instead, which checks the hostname or IP address of the smtpd client (the other MTA/SMTP connecting to the internal smtpd) in a black list, if listed mail is denied.
+
+If mails are marked as `NoBounceOpenRelay` try:
 
     smtpd_sasl_authenticated_header = yes
 
 To configure Postfix to enable email clients to connect to the SMTP server. In `/etc/postfix/main.cf`:
 
-    smtpd_sasl_auth_enable = yes
-    smtpd_sasl_security_options = noanonymous
-    smtpd_sasl_local_domain = $myhostname
-    smtpd_recipient_restrictions = permit_sasl_authenticated,permit_mynetworks, reject_unauth_destination
-    broken_sasl_auth_clients = yes
-    smtpd_sasl_type = dovecot
-    smtpd_sasl_path = private/auth
+```text
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_local_domain = $myhostname
+smtpd_recipient_restrictions = permit_sasl_authenticated,permit_mynetworks, reject_unauth_destination
+broken_sasl_auth_clients = yes
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+```
 
-* `broken_sasl_auth_clients` enables interoperability with remote SMTP clients that implement an obsolete version of the AUTH command. Default is `no`. Setting it to `yes` makes Postfix advertise AUTH support in a non-standard way.
+`broken_sasl_auth_clients` enables interoperability with remote SMTP clients that implement an obsolete version of the AUTH command. Default is `no`. Setting it to `yes` makes Postfix advertise AUTH support in a non-standard way.
 
 Restart both dovecot and postfix.
 

@@ -1,0 +1,2 @@
+# MTA-STS configuration
+

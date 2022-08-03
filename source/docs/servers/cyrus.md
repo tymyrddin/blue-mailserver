@@ -22,5 +22,5 @@ To access the mail server from another computer, configure the server firewall t
 
 ## Configuration resources
 
-  * [Cyrus IMAP](https://www.cyrusimap.org/index.html)
+* [Cyrus IMAP](https://www.cyrusimap.org/index.html)
 
