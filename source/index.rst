@@ -1,4 +1,4 @@
-Mailserver mitigations
+Hardening Mailserver
 ==================================================
 
 .. image:: _static/images/mailserver.png
@@ -73,4 +73,4 @@ for a debian 9, and need to be updated and DMARC added. A work in progress ...
 .. toctree::
    :caption: Links
 
-   All mitigations <https://tymyrddin.github.io/mitigations/>
+   Blue Team <https://tymyrddin.github.io/blue/>
