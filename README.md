@@ -1,4 +1,4 @@
-# Mailserver mitigations
+# Smarter mail servers
 
 ![Publish Mailserver mitigations using Sphinx](https://github.com/tymyrddin/blue-mailserver/workflows/Publish%20Mailserver%20mitigations%20using%20Sphinx/badge.svg?branch=main)
  Deployed: https://tymyrddin.github.io/blue-mailserver/

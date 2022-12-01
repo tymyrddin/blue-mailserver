@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Hardening Mailserver'
+project = 'Smarter mail servers'
 copyright = '2022, TyMyrddin'
 author = 'TyMyrddin'
 
@@ -66,7 +66,7 @@ html_theme_options = {
     'titles_only': False
 }
 
-html_title = "Hardening Mailserver"
+html_title = "Smarter mail servers"
 html_logo = "img/logo.png"
 html_favicon = "img/favicon.ico"
 

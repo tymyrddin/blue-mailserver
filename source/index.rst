@@ -1,4 +1,4 @@
-Hardening Mailserver
+Smarter mail servers
 ==================================================
 
 .. image:: _static/images/mailserver.png
