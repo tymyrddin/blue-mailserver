@@ -73,4 +73,4 @@ for a debian 9, and need to be updated and DMARC added. A work in progress ...
 .. toctree::
    :caption: Links
 
-   Blue Team <https://tymyrddin.github.io/blue/>
+   Blue Team <https://blue.tymyrddin.dev/>
