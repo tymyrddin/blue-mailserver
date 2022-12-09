@@ -90,8 +90,8 @@ html_show_copyright = False
 
 # Intersphinx
 intersphinx_mapping = {
-    "blue": ("https://blue.tymyrddin.dev/", None),
-    "blue-pdata": ("https://blue.tymyrddin.dev/projects/pdata/", None),
-    "blue-server": ("https://blue.tymyrddin.dev/projects/server", None),
+    "blue": ("https://blue.tymyrddin.dev/en/latest/", None),
+    "blue-pdata": ("https://blue.tymyrddin.dev/projects/pdata/en/latest/", None),
+    "blue-server": ("https://blue.tymyrddin.dev/projects/server/en/latest/", None),
 }
 myst_url_schemes = ["http", "https", ]
