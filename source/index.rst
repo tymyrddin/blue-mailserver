@@ -69,8 +69,3 @@ for a debian 9, and need to be updated and DMARC added. A work in progress ...
 
    docs/dmarc/README.md
    docs/dmarc/*
-
-.. toctree::
-   :caption: Links
-
-   Blue Team <https://blue.tymyrddin.dev/>
