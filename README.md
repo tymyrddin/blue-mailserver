@@ -3,7 +3,7 @@
 Built with [Sphinx](https://www.sphinx-doc.org) using a [theme](https://github.com/readthedocs/sphinx_rtd_theme) provided
 by [Read the Docs](https://readthedocs.org/).
 
-[![Documentation Status](https://readthedocs.org/projects/blue-mailserver/badge/?version=latest)](https://blue.tymyrddin.dev/projects/mailserver/en/latest/?badge=latest)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b2f872f4-824a-45d4-9615-27eddd540ed8/deploy-status)](https://app.netlify.com/sites/enchanting-nasturtium-cb3b0e/deploys)
 
 ## Requirements
 
