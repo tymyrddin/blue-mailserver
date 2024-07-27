@@ -23,7 +23,7 @@ legitimate mail and would reach the receiver end.
 * Let’s say that the senders side is fully configured with SPF, DKIM, DMARC and the receiver side is left without any 
 proper configuration, the mail could easily reach the receivers end, since there are no properly established filters.
 
-Don't fall asleep. [Keep checking emails](blue-pdata:docs/email/check-mail), and add PGP signing of messages.
+Don't fall asleep. [Keep checking emails](https://pii.tymyrddin.dev/docs/email/check-mail), and add PGP signing of messages.
 
 
 
